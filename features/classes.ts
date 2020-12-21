@@ -1,20 +1,24 @@
 class Vehicle {
+  constructor(public color: string) {}
+
   protected honk(): void {
     console.log('Beep');
   }
 }
 
-class Car extends Vehicle {
-  private drive(): void {
-    console.log('vroom');
-  }
+const vehicle = new Vehicle('orange');
+console.log(vehicle.color);
 
-  startDrivingProcess(): void {
-    this.drive();
-    this.honk();
-  }
-}
+// class Car extends Vehicle {
+//   private drive(): void {
+//     console.log('vroom');
+//   }
 
-const car = new Car();
-car.startDrivingProcess();
-car.honk();
+//   startDrivingProcess(): void {
+//     this.drive();
+//     this.honk();
+//   }
+// }
+
+// const car = new Car();
+// car.startDrivingProcess();
