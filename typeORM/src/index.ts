@@ -24,7 +24,7 @@ createConnection()
         return res.status(201).json(user);
       } catch (err) {
         console.log(err);
-        return res.status(500).json(err);
+        return res.status(500).json({ error: 'something went wrong' });
       }
     });
     app.get('/users', async (_: Request, res: Response) => {
@@ -33,7 +33,25 @@ createConnection()
         return res.json(users);
       } catch (err) {
         console.log(err);
-        return res.status(500).json(err);
+        return res.status(500).json({ error: 'something went wrong' });
+      }
+    });
+    app.put('/users/:uuid', async (req: Request, res: Response) => {
+      const uuid = req.params.uuid;
+      const { name, email, role } = req.body;
+      try {
+        const user = await User.findOneOrFail({ uuid });
+
+        user.name = name || user.name;
+        user.email = email || user.email;
+        user.role = role || user.role;
+
+        await user.save();
+
+        return res.json(user);
+      } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: 'something went wrong' });
       }
     });
   })
