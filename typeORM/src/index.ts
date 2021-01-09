@@ -1,15 +1,31 @@
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
+import express, { Request, Response } from 'express';
+
 import { User } from './entity/User';
 
-createConnection()
-  .then(async (connection) => {
-    const user = new User();
-    user.name = 'Jone Doe';
-    user.email = 'john@email.com';
-    user.role = 'admin';
+const app = express();
+app.use(express.json());
 
-    await user.save();
-    console.log('user created');
+createConnection()
+  .then(async () => {
+    app.listen(5000, () => console.log('Now listening on port 5000'));
+    app.post('/users', async (req: Request, res: Response) => {
+      const { name, email, role } = req.body;
+      try {
+        const user = User.create({
+          name,
+          email,
+          role,
+        });
+        await user.save();
+
+        console.log(user);
+        return res.status(201).json(user);
+      } catch (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
+    });
   })
   .catch((error) => console.log(error));
