@@ -27,5 +27,14 @@ createConnection()
         return res.status(500).json(err);
       }
     });
+    app.get('/users', async (_: Request, res: Response) => {
+      try {
+        const users = await User.find();
+        return res.json(users);
+      } catch (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
+    });
   })
   .catch((error) => console.log(error));
