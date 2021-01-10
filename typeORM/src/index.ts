@@ -9,7 +9,7 @@ app.use(express.json());
 
 createConnection()
   .then(async () => {
-    app.listen(5000, () => console.log('Now listening on port 5000'));
+    app.listen(5001, () => console.log('Now listening on port 5000'));
 
     // CREATE
     app.post('/users', async (req: Request, res: Response) => {
@@ -38,6 +38,19 @@ createConnection()
       } catch (err) {
         console.log(err);
         return res.status(500).json({ error: 'something went wrong' });
+      }
+    });
+
+    // FIND
+    app.get('/users/:uuid', async (req: Request, res: Response) => {
+      const uuid = req.params.uuid;
+      try {
+        const user = await User.findOneOrFail({ uuid });
+
+        return res.json(user);
+      } catch (err) {
+        console.log(err);
+        res.status(404).json({ user: 'user not found' });
       }
     });
 
