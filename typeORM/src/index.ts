@@ -10,6 +10,8 @@ app.use(express.json());
 createConnection()
   .then(async () => {
     app.listen(5000, () => console.log('Now listening on port 5000'));
+
+    // CREATE
     app.post('/users', async (req: Request, res: Response) => {
       const { name, email, role } = req.body;
       try {
@@ -27,6 +29,8 @@ createConnection()
         return res.status(500).json({ error: 'something went wrong' });
       }
     });
+
+    // READ
     app.get('/users', async (_: Request, res: Response) => {
       try {
         const users = await User.find();
@@ -36,6 +40,8 @@ createConnection()
         return res.status(500).json({ error: 'something went wrong' });
       }
     });
+
+    // UPDATE
     app.put('/users/:uuid', async (req: Request, res: Response) => {
       const uuid = req.params.uuid;
       const { name, email, role } = req.body;
@@ -49,6 +55,20 @@ createConnection()
         await user.save();
 
         return res.json(user);
+      } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: 'something went wrong' });
+      }
+    });
+
+    // DELETE
+    app.delete('/users/:uuid', async (req: Request, res: Response) => {
+      const uuid = req.params.uuid;
+      try {
+        const user = await User.findOneOrFail({ uuid });
+        await user.remove();
+
+        return res.status(204).json({ message: 'User Delete Successfully' });
       } catch (err) {
         console.log(err);
         res.status(500).json({ error: 'something went wrong' });
