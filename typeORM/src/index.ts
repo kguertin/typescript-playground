@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import express, { Request, Response } from 'express';
+import { validate } from 'class-validator';
 
 import { User } from './entity/User';
 import { Post } from './entity/Post';
@@ -21,13 +22,16 @@ createConnection()
           email,
           role,
         });
-        await user.save();
 
-        console.log(user);
+        const errors = await validate(user);
+        console.log(errors);
+        if (errors.length > 0) throw errors;
+
+        await user.save();
         return res.status(201).json(user);
       } catch (err) {
         console.log(err);
-        return res.status(500).json({ error: 'something went wrong' });
+        return res.status(500).json(err);
       }
     });
 

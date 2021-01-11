@@ -12,9 +12,4 @@ export class Post extends Model {
 
   @ManyToOne(() => User)
   user: User;
-
-  constructor(model?: Partial<any>) {
-    super();
-    Object.assign(this, model);
-  }
 }
