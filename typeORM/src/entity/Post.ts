@@ -1,5 +1,7 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToOne } from 'typeorm';
 import Model from './Model';
+import { User } from './User';
+
 @Entity('posts')
 export class Post extends Model {
   @Column()
@@ -8,8 +10,11 @@ export class Post extends Model {
   @Column()
   body: string;
 
-  constructor({ title, body }: { title: string; body: string }) {
+  @ManyToOne(() => User)
+  user: User;
+
+  constructor(model?: Partial<any>) {
     super();
-    Object.assign(this, { title, body });
+    Object.assign(this, model);
   }
 }

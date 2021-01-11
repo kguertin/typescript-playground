@@ -34,7 +34,7 @@ createConnection()
     // READ
     app.get('/users', async (_: Request, res: Response) => {
       try {
-        const users = await User.find();
+        const users = await User.find({ relations: ['posts'] });
         return res.json(users);
       } catch (err) {
         console.log(err);
@@ -94,7 +94,19 @@ createConnection()
       const { userUuid, title, body } = req.body;
       try {
         const user = await User.findOneOrFail({ uuid: userUuid });
-        const post = new Post({ title, body });
+        const post = new Post({ title, body, user });
+        await post.save();
+        return res.status(201).json(post);
+      } catch (err) {
+        return res.json(500).json({ error: 'something went wrong' });
+      }
+    });
+
+    // READ ALL POSTS
+    app.get('/posts', async (req: Request, res: Response) => {
+      try {
+        const post = await Post.find({ relations: ['user'] });
+        return res.json(post);
       } catch (err) {
         return res.json(500).json({ error: 'something went wrong' });
       }
