@@ -3,6 +3,7 @@ import { createConnection } from 'typeorm';
 import express, { Request, Response } from 'express';
 
 import { User } from './entity/User';
+import { Post } from './entity/Post';
 
 const app = express();
 app.use(express.json());
@@ -85,6 +86,17 @@ createConnection()
       } catch (err) {
         console.log(err);
         res.status(500).json({ error: 'something went wrong' });
+      }
+    });
+
+    // CREATE A POST
+    app.post('/posts', async (req: Request, res: Response) => {
+      const { userUuid, title, body } = req.body;
+      try {
+        const user = await User.findOneOrFail({ uuid: userUuid });
+        const post = new Post({ title, body });
+      } catch (err) {
+        return res.json(500).json({ error: 'something went wrong' });
       }
     });
   })
