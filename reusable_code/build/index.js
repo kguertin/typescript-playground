@@ -8,5 +8,5 @@ var Summary_1 = require("./Summary");
 var csvFileReader = new CsvFileReader_1.CsvFileReader('football.csv');
 var matchReader = new MatchReader_1.MatchReader(csvFileReader);
 matchReader.load();
-var summary = new Summary_1.Summary(new WinsAnalysis_1.WinsAnalysis('Everton'), new ConsoleReport_1.ConsoleReport());
+var summary = new Summary_1.Summary(new WinsAnalysis_1.WinsAnalysis('Man United'), new ConsoleReport_1.ConsoleReport());
 summary.buildAndPrintReport(matchReader.matches);
