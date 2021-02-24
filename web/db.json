@@ -1,9 +1,9 @@
 {
   "users": [
     {
-      "name": "myname",
-      "age": 31,
-      "id": 1
+      "id": 1,
+      "name": "NEW",
+      "age": 99
     },
     {
       "name": "myname",
@@ -64,6 +64,16 @@
       "name": "myname",
       "age": 31,
       "id": 13
+    },
+    {
+      "name": "NEW_RECORD",
+      "age": 0,
+      "id": 14
+    },
+    {
+      "name": "NEW_RECORD",
+      "age": 0,
+      "id": 15
     }
   ]
 }
