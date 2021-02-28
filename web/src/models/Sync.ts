@@ -1,7 +1,7 @@
 import axios, { AxiosPromise } from 'axios';
 
 interface hasId {
-  id: number;
+  id?: number;
 }
 
 export class Sync<T extends hasId> {
@@ -17,6 +17,7 @@ export class Sync<T extends hasId> {
     if (id) {
       return axios.put(`${this.rootUrl}/${id}`, data);
     } else {
+      4;
       return axios.post(this.rootUrl, data);
     }
   }
