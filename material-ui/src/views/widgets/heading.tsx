@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Typeography from '@mui/material/Typography';
 
-
 export enum HEADING_SIZE {
   heading_large = 'h2',
   heading_medium = 'h4',
