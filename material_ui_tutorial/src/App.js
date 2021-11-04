@@ -8,7 +8,8 @@ import CheckBox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, ThemeProvider, createTheme } from '@material-ui/core';
+import { green, orange } from '@material-ui/core/colors';
 
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -21,6 +22,17 @@ const useStyles = makeStyles({
     borderRadius: 15,
     color: 'white',
     padding: '5px 30px',
+  },
+});
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: green[400],
+    },
+    secondary: {
+      main: orange[400],
+    },
   },
 });
 
@@ -52,42 +64,44 @@ function CheckBoxExample() {
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <ButtonStyed />
-        <TextField
-          variant="filled"
-          color="secondary"
-          type="User Email"
-          label="The Time"
-          placeholder="email@test.com"
-        />
-        <CheckBoxExample />
-        <ButtonGroup variant="contained" color="primary">
-          <Button
-            startIcon={<SaveIcon />}
-            onClick={() => alert('Hello')}
-            size="large"
-            style={{
-              fontSize: '12px',
-            }}
-          >
-            Save
-          </Button>
-          <Button
-            startIcon={<DeleteIcon />}
-            onClick={() => alert('Hello')}
-            size="large"
-            style={{
-              fontSize: '12px',
-            }}
-          >
-            Discard
-          </Button>
-        </ButtonGroup>
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <header className="App-header">
+          <ButtonStyed />
+          <TextField
+            variant="filled"
+            color="secondary"
+            type="User Email"
+            label="The Time"
+            placeholder="email@test.com"
+          />
+          <CheckBoxExample />
+          <ButtonGroup variant="contained" color="primary">
+            <Button
+              startIcon={<SaveIcon />}
+              onClick={() => alert('Hello')}
+              size="large"
+              style={{
+                fontSize: '12px',
+              }}
+            >
+              Save
+            </Button>
+            <Button
+              startIcon={<DeleteIcon />}
+              onClick={() => alert('Hello')}
+              size="large"
+              style={{
+                fontSize: '12px',
+              }}
+            >
+              Discard
+            </Button>
+          </ButtonGroup>
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
+      </div>
+    </ThemeProvider>
   );
 }
 
