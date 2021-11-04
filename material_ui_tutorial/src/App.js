@@ -13,6 +13,23 @@ import { makeStyles } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B, #FF8E53)',
+    border: 0,
+    marginBottom: 15,
+    borderRadius: 15,
+    color: 'white',
+    padding: '5px 30px',
+  },
+});
+
+function ButtonStyed() {
+  const classes = useStyles();
+
+  return <Button className={classes.root}>Test Styled Button</Button>;
+}
+
 function CheckBoxExample() {
   const [checked, setChecked] = React.useState(true);
   return (
@@ -37,6 +54,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <ButtonStyed />
         <TextField
           variant="filled"
           color="secondary"
