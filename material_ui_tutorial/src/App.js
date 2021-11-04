@@ -6,6 +6,10 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import CheckBox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import TextField from '@material-ui/core/TextField';
+
+import { makeStyles } from '@material-ui/core';
+
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -33,6 +37,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <TextField
+          variant="filled"
+          color="secondary"
+          type="User Email"
+          label="The Time"
+          placeholder="email@test.com"
+        />
         <CheckBoxExample />
         <ButtonGroup variant="contained" color="primary">
           <Button
